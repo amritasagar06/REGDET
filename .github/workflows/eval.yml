@@ -1,0 +1,66 @@
+name: prompt-regression-check
+
+on:
+  pull_request:
+    paths:
+      - "prompts/**"
+
+permissions:
+  contents: read
+  pull-requests: write   # needed to post the PR comment
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history so we can diff against the base branch
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Run eval on changed prompts
+        id: eval
+        continue-on-error: true      # lets later steps (comment, artifact) still run
+        env:
+          # No API key secret? Fall back to the free mock provider so the pipeline still works.
+          PROVIDER: ${{ secrets.OPENAI_API_KEY != '' && 'openai' || 'mock' }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          REPORT_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD --diff-filter=AM -- 'prompts/*.yaml')
+          echo "Changed prompts: $FILES"
+          FAIL=0
+          mkdir -p reports/all
+          for f in $FILES; do
+            python -m regdet run --prompt "$f" --baseline baselines/baseline.json --out reports || FAIL=1
+            cat reports/summary.md >> reports/all/comment.md
+          done
+          exit $FAIL
+
+      - name: Comment on PR
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -f reports/all/comment.md ]; then
+            gh pr comment ${{ github.event.pull_request.number }} --body-file reports/all/comment.md
+          fi
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: regression-report
+          path: reports/
+
+      - name: Block merge on critical regression
+        if: steps.eval.outcome == 'failure'
+        run: |
+          echo "Critical regression detected (or eval error). Failing the check."
+          exit 1

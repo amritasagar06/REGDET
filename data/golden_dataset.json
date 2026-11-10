@@ -1,0 +1,405 @@
+{
+  "dataset_version": "1.0.0",
+  "cases": [
+    {
+      "id": "case-001",
+      "email": "Hi, I was charged twice for my March subscription. Please refund the duplicate payment.",
+      "expected_category": "billing",
+      "ideal_summary": "The customer has been charged twice a month and he wants the duplicate payemnt refunded",
+      "expected_difficulty": "easy",
+      "notes": "Classic duplicate-charge complaint; the refund is the key action."
+    },
+    {
+      "id": "case-002",
+      "email": "Can you send me an invoice for last month's payment? I need it for my accountant.",
+      "expected_category": "billing",
+      "ideal_summary": "Customer requests an invoice for last month's payment.",
+      "expected_difficulty": "easy",
+      "notes": "Document request tied to a payment, needed for accounting."
+    },
+    {
+      "id": "case-003",
+      "email": "Why did my bill go up this month? The price on my receipt is higher than before.",
+      "expected_category": "billing",
+      "ideal_summary": "Customer asks why this month's bill is higher than before.",
+      "expected_difficulty": "easy",
+      "notes": "Price increase on an existing bill; customer wants an explanation."
+    },
+    {
+      "id": "case-004",
+      "email": "I want to cancel my subscription before the next billing date so I'm not charged again.",
+      "expected_category": "account",
+      "ideal_summary": "Customer wants to cancel the subscription before the next charge.",
+      "expected_difficulty": "medium",
+      "notes": "Cancelling a subscription is an account action, even though the motive is avoiding a charge."
+    },
+    {
+      "id": "case-005",
+      "email": "My credit card expired. How do I update my payment method?",
+      "expected_category": "billing",
+      "ideal_summary": "Customer wants to update an expired payment card.",
+      "expected_difficulty": "easy",
+      "notes": "Payment method update; money-related, not a login problem."
+    },
+    {
+      "id": "case-006",
+      "email": "Refund please. The product wasn't what I expected.",
+      "expected_category": "billing",
+      "ideal_summary": "Customer requests a refund because the product did not meet expectations.",
+      "expected_difficulty": "easy",
+      "notes": "Refund request for a purchase, no technical issue involved."
+    },
+    {
+      "id": "case-007",
+      "email": "I see an unknown charge of $19.99 on my statement from your company.",
+      "expected_category": "billing",
+      "ideal_summary": "Customer sees an unrecognised $19.99 charge and wants it explained.",
+      "expected_difficulty": "easy",
+      "notes": "Unrecognised charge that needs a billing investigation."
+    },
+    {
+      "id": "case-008",
+      "email": "Do you offer a discount on annual plans? What's the price?",
+      "expected_category": "general",
+      "ideal_summary": "Customer asks about annual plan pricing and discounts.",
+      "expected_difficulty": "medium",
+      "notes": "Pre-sales pricing question from a prospect, not a billing issue with an existing account."
+    },
+    {
+      "id": "case-009",
+      "email": "i was bild twice plz fix refnd",
+      "expected_category": "billing",
+      "ideal_summary": "Customer says they were billed twice and wants a refund.",
+      "expected_difficulty": "hard",
+      "notes": "Heavy typos; a human still understands double billing and a refund request."
+    },
+    {
+      "id": "case-010",
+      "email": "Great, another month, another surprise charge on my card. Love that for me.",
+      "expected_category": "billing",
+      "ideal_summary": "Customer is annoyed about an unexpected charge on their card.",
+      "expected_difficulty": "hard",
+      "notes": "Sarcasm; positive words hide a complaint about an unexpected charge."
+    },
+    {
+      "id": "case-011",
+      "email": "The app crashes every time I open the camera feature on my iPhone.",
+      "expected_category": "technical",
+      "ideal_summary": "App crashes whenever the camera feature is opened on iPhone.",
+      "expected_difficulty": "easy",
+      "notes": "Clear crash with device context."
+    },
+    {
+      "id": "case-012",
+      "email": "I get Error 500 when I try to export my report.",
+      "expected_category": "technical",
+      "ideal_summary": "Customer gets a 500 error when exporting a report.",
+      "expected_difficulty": "easy",
+      "notes": "Specific error code on a specific feature."
+    },
+    {
+      "id": "case-013",
+      "email": "The dashboard has been loading extremely slowly since this morning.",
+      "expected_category": "technical",
+      "ideal_summary": "Dashboard has been very slow to load since this morning.",
+      "expected_difficulty": "easy",
+      "notes": "Performance problem rather than a total outage."
+    },
+    {
+      "id": "case-014",
+      "email": "The API returns an empty response when I call /v2/orders with a valid key.",
+      "expected_category": "technical",
+      "ideal_summary": "API returns an empty response from /v2/orders despite a valid key.",
+      "expected_difficulty": "easy",
+      "notes": "Developer-facing API issue; technical even though the credentials are valid."
+    },
+    {
+      "id": "case-015",
+      "email": "Your mobile app freezes after the latest update.",
+      "expected_category": "technical",
+      "ideal_summary": "Mobile app freezes after the latest update.",
+      "expected_difficulty": "easy",
+      "notes": "Problem started after an update; app stability issue."
+    },
+    {
+      "id": "case-016",
+      "email": "I can't log in. The login page just spins forever and never loads.",
+      "expected_category": "technical",
+      "ideal_summary": "Login page spins forever and never loads.",
+      "expected_difficulty": "medium",
+      "notes": "Mentions login, but the failure is the page not loading, so it is technical, not account."
+    },
+    {
+      "id": "case-017",
+      "email": "Notifications are not working on Android since yesterday.",
+      "expected_category": "technical",
+      "ideal_summary": "Android notifications have stopped working since yesterday.",
+      "expected_difficulty": "easy",
+      "notes": "Feature not working on a specific platform."
+    },
+    {
+      "id": "case-018",
+      "email": "Doesn't work.",
+      "expected_category": "technical",
+      "ideal_summary": "Customer says something does not work but gives no detail.",
+      "expected_difficulty": "hard",
+      "notes": "Extremely short with no context; the only signal is that something is broken."
+    },
+    {
+      "id": "case-019",
+      "email": "Hola, la aplicación se bloquea cuando abro mis archivos. App crash!",
+      "expected_category": "technical",
+      "ideal_summary": "Customer reports the app crashes when opening files.",
+      "expected_difficulty": "hard",
+      "notes": "Mixed Spanish and English; the summary must still be in English."
+    },
+    {
+      "id": "case-020",
+      "email": "Wow, love how your app 'saves' my work by deleting it. Super helpful bug.",
+      "expected_category": "technical",
+      "ideal_summary": "Customer reports a bug where the app deletes their work instead of saving.",
+      "expected_difficulty": "hard",
+      "notes": "Sarcasm; the real bug is data loss when saving."
+    },
+    {
+      "id": "case-021",
+      "email": "I forgot my password and the reset email never arrives.",
+      "expected_category": "account",
+      "ideal_summary": "Customer forgot their password and the reset email is not arriving.",
+      "expected_difficulty": "easy",
+      "notes": "Password recovery is an account issue even though the reset email fails to arrive."
+    },
+    {
+      "id": "case-022",
+      "email": "Please delete my account and all my data.",
+      "expected_category": "account",
+      "ideal_summary": "Customer asks for their account and data to be deleted.",
+      "expected_difficulty": "easy",
+      "notes": "Account deletion and data removal request."
+    },
+    {
+      "id": "case-023",
+      "email": "How do I change the email address on my profile?",
+      "expected_category": "account",
+      "ideal_summary": "Customer wants to change the email address on their profile.",
+      "expected_difficulty": "easy",
+      "notes": "Change to a profile detail."
+    },
+    {
+      "id": "case-024",
+      "email": "My account is locked after too many attempts. Please unlock it.",
+      "expected_category": "account",
+      "ideal_summary": "Customer's account is locked and they want it unlocked.",
+      "expected_difficulty": "easy",
+      "notes": "Lockout after too many failed attempts."
+    },
+    {
+      "id": "case-025",
+      "email": "I want to enable two-factor authentication for my team's accounts.",
+      "expected_category": "account",
+      "ideal_summary": "Customer wants to enable two-factor authentication for their team.",
+      "expected_difficulty": "easy",
+      "notes": "Security setting for a team's accounts."
+    },
+    {
+      "id": "case-026",
+      "email": "Can I add a second user to my plan?",
+      "expected_category": "account",
+      "ideal_summary": "Customer asks whether a second user can be added to their plan.",
+      "expected_difficulty": "medium",
+      "notes": "User management on a plan; could be mistaken for billing."
+    },
+    {
+      "id": "case-027",
+      "email": "Please change my username to jsmith_dev.",
+      "expected_category": "account",
+      "ideal_summary": "Customer asks to change their username to jsmith_dev.",
+      "expected_difficulty": "easy",
+      "notes": "Simple profile change."
+    },
+    {
+      "id": "case-028",
+      "email": "I can't access my account and I think I was charged anyway.",
+      "expected_category": "account",
+      "ideal_summary": "Customer cannot access their account and suspects they were still charged.",
+      "expected_difficulty": "hard",
+      "notes": "Ambiguous account/billing: customer cannot access their account and suspects a charge. The main problem is access, so account."
+    },
+    {
+      "id": "case-029",
+      "email": "cant log in, forgot pasword. pls help!!",
+      "expected_category": "account",
+      "ideal_summary": "Customer cannot log in because they forgot their password.",
+      "expected_difficulty": "hard",
+      "notes": "Typos; forgot-password login problem."
+    },
+    {
+      "id": "case-030",
+      "email": "Transfer ownership of my profile to my colleague Priya, she is taking over.",
+      "expected_category": "account",
+      "ideal_summary": "Customer wants their profile ownership transferred to a colleague.",
+      "expected_difficulty": "medium",
+      "notes": "Ownership transfer between users."
+    },
+    {
+      "id": "case-031",
+      "email": "Do you have an office in Singapore? I'd like to visit.",
+      "expected_category": "general",
+      "ideal_summary": "Customer asks whether the company has a Singapore office to visit.",
+      "expected_difficulty": "easy",
+      "notes": "Company information question, not a product issue."
+    },
+    {
+      "id": "case-032",
+      "email": "Just wanted to say thanks, your team has been great!",
+      "expected_category": "general",
+      "ideal_summary": "Customer thanks the team for great service.",
+      "expected_difficulty": "easy",
+      "notes": "Positive feedback; no action needed."
+    },
+    {
+      "id": "case-033",
+      "email": "What are your support hours during public holidays?",
+      "expected_category": "general",
+      "ideal_summary": "Customer asks about support hours on public holidays.",
+      "expected_difficulty": "easy",
+      "notes": "Company policy and information question."
+    },
+    {
+      "id": "case-034",
+      "email": "Feedback: please add a dark mode.",
+      "expected_category": "general",
+      "ideal_summary": "Customer requests a dark mode feature.",
+      "expected_difficulty": "medium",
+      "notes": "Feature request, not a bug."
+    },
+    {
+      "id": "case-035",
+      "email": "Can someone call me back regarding partnership opportunities?",
+      "expected_category": "general",
+      "ideal_summary": "Customer wants a call back about partnership opportunities.",
+      "expected_difficulty": "easy",
+      "notes": "Business enquiry about partnerships."
+    },
+    {
+      "id": "case-036",
+      "email": "Where can I find your privacy policy?",
+      "expected_category": "general",
+      "ideal_summary": "Customer asks where to find the privacy policy.",
+      "expected_difficulty": "easy",
+      "notes": "Document lookup, not an account issue."
+    },
+    {
+      "id": "case-037",
+      "email": "???",
+      "expected_category": "general",
+      "ideal_summary": "Customer sent an unclear message with no content.",
+      "expected_difficulty": "hard",
+      "notes": "No information at all."
+    },
+    {
+      "id": "case-038",
+      "email": "你好，我想了解一下贵公司的企业合作方案。",
+      "expected_category": "general",
+      "ideal_summary": "Customer asks about enterprise partnership options.",
+      "expected_difficulty": "hard",
+      "notes": "Non-English message; the summary must still be in English."
+    },
+    {
+      "id": "case-039",
+      "email": "Oh sure, ignore my last three emails. I'm sure you're very busy. Has anyone read this?",
+      "expected_category": "general",
+      "ideal_summary": "Customer is frustrated that earlier emails went unanswered and wants a reply.",
+      "expected_difficulty": "hard",
+      "notes": "Sarcasm; chasing a reply to earlier emails."
+    },
+    {
+      "id": "case-040",
+      "email": "I'd like to know if the app works offline and how much the plan costs.",
+      "expected_category": "general",
+      "ideal_summary": "Customer asks whether the app works offline and what the plan costs.",
+      "expected_difficulty": "hard",
+      "notes": "Two topics (technical and billing) in one email. Only one label is allowed, so it is general as a pre-sales enquiry, consistent with case-008."
+    },
+    {
+  "id": "case-041",
+  "email": "I hv issues with making acc",
+  "expected_category": "account",
+  "ideal_summary": "The user is having issue with making account",
+  "expected_difficulty": "hard",
+  "notes": "Mutilple typos"
+    },
+    {
+  "id": "case-042",
+  "email": "Where do i find the billing section in my account? How much do i have to pay per month?",
+  "expected_category": "billing",
+  "ideal_summary": "This case has both general and billing question ",
+  "expected_difficulty": "hard",
+  "notes": "The coustomers concerns belong to two different categories"
+    },
+    {
+      "id": "case-043",
+      "email": "App broken",
+      "expected_category": "technical",
+      "ideal_summary": "Customer says the app is broken but gives no detail.",
+      "expected_difficulty": "hard",
+      "notes": "Two words and no context; the only signal is that something is broken."
+    },
+    {
+      "id": "case-044",
+      "email": "Bonjour, je n'arrive pas à exporter mon fichier. Export fails every time.",
+      "expected_category": "technical",
+      "ideal_summary": "Customer cannot export a file because the export fails every time.",
+      "expected_difficulty": "hard",
+      "notes": "Mixed French and English; the summary must be in English."
+    },
+    {
+      "id": "case-045",
+      "email": "Can't sign in and I want my money back for this month.",
+      "expected_category": "account",
+      "ideal_summary": "Customer cannot sign in and also wants a refund for this month.",
+      "expected_difficulty": "hard",
+      "notes": "Two asks (access and refund); labelled by the main problem, access, consistent with case-028."
+    },
+    {
+      "id": "case-046",
+      "email": "my acount got lokced pls unlok",
+      "expected_category": "account",
+      "ideal_summary": "Customer's account is locked and they want it unlocked.",
+      "expected_difficulty": "hard",
+      "notes": "Typos; lockout is an account issue."
+    },
+    {
+      "id": "case-047",
+      "email": "Thanks for the lightning-fast reply. I only waited two weeks.",
+      "expected_category": "general",
+      "ideal_summary": "Customer is sarcastically complaining that the reply took two weeks.",
+      "expected_difficulty": "hard",
+      "notes": "Sarcasm; a service-speed complaint not tied to billing, tech or account."
+    },
+    {
+      "id": "case-048",
+      "email": "Hello, quisiera hablar con alguien sobre una colaboración entre empresas.",
+      "expected_category": "general",
+      "ideal_summary": "Customer wants to talk to someone about a business collaboration.",
+      "expected_difficulty": "hard",
+      "notes": "Mixed English and Spanish; partnership enquiry."
+    },
+    {
+      "id": "case-049",
+      "email": "my paymnt faild but u still took the money?? fix it",
+      "expected_category": "billing",
+      "ideal_summary": "Customer says a payment failed but the money was still taken and wants it fixed.",
+      "expected_difficulty": "hard",
+      "notes": "Typos; a failed payment with money taken is a money issue, so billing."
+    },
+    {
+      "id": "case-050",
+      "email": "Wonderful, you've raised the price again. Clearly I'm made of money.",
+      "expected_category": "billing",
+      "ideal_summary": "Customer is unhappy that the price has been raised again.",
+      "expected_difficulty": "hard",
+      "notes": "Sarcasm; complaint about a price increase."
+    }
+  ]
+} 

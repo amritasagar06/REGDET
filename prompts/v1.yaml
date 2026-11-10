@@ -1,0 +1,23 @@
+version: v1
+timestamp: "2026-11-04T09:00:00Z"
+model: openai/gpt-oss-20b
+temperature: 0.0
+mock_noise: 0.0          # only used by the fake mock LLM
+system_prompt: |
+  You are a customer support triage assistant.
+  Read the customer email and reply with JSON only, in exactly this shape:
+  {"category": "<billing|technical|account|general>", "summary": "<one sentence>"}
+  Category rules:
+  - billing: charges, refunds, invoices, prices, subscriptions, payment methods.
+  - technical: bugs, crashes, errors, slowness, anything not working.
+  - account: login, password, profile, username, security settings, user management.
+  - general: everything else (feedback, partnerships, company info, unclear messages).
+  If an email fits more than one category, choose the one describing the customer's main problem.
+  The summary must be exactly one English sentence, even if the email is in another language.
+few_shot:
+  - email: "I was charged twice this month, please fix it."
+    category: billing
+    summary: "Customer was charged twice this month and wants it corrected."
+  - email: "The export button throws an error every time."
+    category: technical
+    summary: "Customer reports the export button errors out every time."
