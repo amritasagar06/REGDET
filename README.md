@@ -31,8 +31,6 @@
 11. [Project structure](#project-structure)
 12. [Design decisions](#design-decisions)
 13. [Limitations](#limitations)
-14. [Roadmap](#roadmap)
-15. [My results](#my-results)
 
 ---
 
