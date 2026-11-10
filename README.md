@@ -369,14 +369,3 @@ The baseline must come from the same provider as the run (an OpenAI baseline nee
 - Cost tracking per run and per model for migration decisions.
 - Auto-propose new golden cases from production failures.
 
-## My results
-
-<!-- Fill this in with YOUR real numbers and screenshots before submitting. -->
-- Golden dataset: **[N] cases**, of which **[N] hard**, dataset version **[x.y.z]**
-- Baseline (`[model]`, prompt `v1`): pass rate **[xx]%**
-- Deliberately bad prompt: pass rate **[xx]%**, status **CRITICAL**, **[N] regressions** caught and merge blocked
-- One thing I learned: **[your sentence]**
-
-## License
-
-MIT (or your choice). Add a `LICENSE` file before publishing.
