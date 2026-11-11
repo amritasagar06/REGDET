@@ -31,6 +31,11 @@ jobs:
           # No API key secret? Fall back to the free mock provider so the pipeline still works.
           PROVIDER: ${{ secrets.OPENAI_API_KEY != '' && 'openai' || 'mock' }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ secrets.OPENAI_BASE_URL }}
+          JUDGE_MODEL: ${{ vars.JUDGE_MODEL }}
+          REQUESTS_PER_MINUTE: ${{ vars.REQUESTS_PER_MINUTE }}
+          USE_JUDGE: ${{ vars.USE_JUDGE }}
+          CONCURRENCY: ${{ vars.CONCURRENCY }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           REPORT_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         run: |

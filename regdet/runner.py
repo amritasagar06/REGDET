@@ -52,4 +52,15 @@ async def run_eval(provider, cfg: PromptConfig, cases: list[GoldenCase],
                    judge_model: str, concurrency: int = 5,
                    use_judge: bool = True) -> list[CaseResult]:
     sem = asyncio.Semaphore(concurrency)
-    return await asyncio.gather(*[_run_case(provider, cfg, c, judge_model, sem, use_judge) for c in cases])
+    total, done = len(cases), 0
+
+    async def one(c):
+        nonlocal done
+        res = await _run_case(provider, cfg, c, judge_model, sem, use_judge)
+        done += 1
+        print(f"\r  progress: {done}/{total} cases", end="", flush=True)  # live counter
+        return res
+
+    results = await asyncio.gather(*[one(c) for c in cases])
+    print()  # move to a new line after the counter
+    return list(results)
