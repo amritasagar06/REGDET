@@ -1,0 +1,11 @@
+version: v3-bad
+timestamp: "2026-11-10T09:00:00Z"
+model: openai/gpt-oss-20b
+temperature: 0.0
+mock_noise: 0.25
+system_prompt: |
+  Reply as JSON with keys "category" and "summary".
+  Allowed categories: billing, technical, account, general.
+  Always choose general unless the email contains the word refund,
+  then choose billing.
+few_shot: []
