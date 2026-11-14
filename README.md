@@ -285,6 +285,12 @@ python scripts/seed_drift_demo.py       # seeds a slowly declining history
 python -m regdet run --prompt prompts/v1.yaml --provider mock --no-slack
 ```
 
+Windows PowerShell alternative to editing `.env`: `$env:DRIFT_FLOOR="0.92"` before the run, then `Remove-Item Env:DRIFT_FLOOR`.
+
+**Demo result.** The history here is *seeded* (simulated) on the mock provider to show the mechanism. The latest run is identical to the one before it (0 regressions, p = 1.0), so a per-run diff sees nothing, yet the 7-run moving average has sunk to 83.4%, below the 92% floor, and the system raises a warning:
+
+![Slow-drift warning](docs/drift.png)
+
 ## CI/CD integration
 
 `.github/workflows/eval.yml` runs on every pull request that changes files under `prompts/`:
@@ -327,12 +333,39 @@ Set in `.env` (copy from `.env.example`) or as environment variables / CI secret
 | `CONCURRENCY` | `5` | Parallel LLM calls |
 | `REPORT_URL` | none | Link included in the Slack message |
 
-**Docker** (a Dockerfile is provided for packaging; the CI demo above runs without it)
+**Docker**
+
+The pipeline is packaged as a small Python 3.11 image (about 285 MB on disk). A `.dockerignore` keeps the virtual environment, reports and secrets out of the build.
+
 ```bash
 docker build -t regdet .
-docker run --rm --env-file .env regdet
+docker run --rm --env-file .env regdet run --prompt prompts/v1.yaml --baseline baselines/baseline.json --limit 10 --no-slack
 ```
-The baseline must come from the same provider as the run (an OpenAI baseline needs `PROVIDER=openai`).
+(In PowerShell, split long commands with a backtick at the end of each line.)
+
+Output of a real run inside the container (10 cases against the committed baseline):
+
+```
+Running 10 cases | prompt=v1 model=openai/gpt-oss-20b provider=openai
+  progress: 10/10 cases
+
+### ✅ Prompt regression check: PASS
+| Pass rate | 80.0% | 80.0% | +0.0% |
+0 regressions, 0 improvements (sign-test p=1.000).
+Avg judge score: 4.70/5 | avg latency: 7320 ms | tokens: 7685
+```
+
+The container running in Docker Desktop (green dot = running job, started with `docker run -d --name regdet-demo ...`):
+
+![regdet container in Docker Desktop](docs/docker-desktop.png)
+
+The same container's logs after it finished a 25-case run: PASS at 88% with 0 regressions, 18,726 tokens, and exit status 0 (success):
+
+![regdet container logs](docs/docker-logs.png)
+
+Notes:
+- `--env-file` does **not** behave like Python's `.env` loader: it keeps quotes and spaces. Write every line as `NAME=value` with no quotes and no spaces around `=`, or you will get `401 Invalid API Key` or `Unknown provider` inside the container.
+- The baseline must come from the same provider as the run (an OpenAI-compatible baseline needs `PROVIDER=openai`).
 
 ## Project structure
 
@@ -357,6 +390,7 @@ The baseline must come from the same provider as the run (an OpenAI baseline nee
 ├── scripts/seed_drift_demo.py   # demo history for drift detection
 ├── tests/test_compare.py        # unit tests
 ├── Dockerfile
+├── .dockerignore
 ├── requirements.txt
 └── .env.example
 ```
@@ -403,5 +437,9 @@ The baseline must come from the same provider as the run (an OpenAI baseline nee
 | Side effect worth noticing | 2 "improvements" (cases 008 and 040) appeared only because the bad prompt answers `general` for almost everything |
 | Good prompt `v3-good` | **94%** pass rate, 0 regressions, check passed. This prompt is identical to `v1`, so the +2 points is run-to-run model variation, which is why thresholds and a significance test exist |
 | Alerts | Slack message on both runs; required `eval` check blocks merging the bad pull request |
+| Slow-drift demo | With seeded history on the mock provider: the latest run matched the previous one (0 regressions), but the 7-run average was 83.4%, below the 92% floor, so the system warned |
+| Docker | Image builds and runs the evaluation in a container: a 10-case run passed at 80%, matching the baseline |
 
 **What I learned:** the model's only disagreements with my labels were on the cases I had marked as ambiguous, so label quality sets the ceiling for every metric, and a single pass-rate number can hide one category collapsing while another improves.
+
+**Debugging notes:** the free-tier API needed a request throttle to respect rate limits, and Docker's `--env-file` keeps spaces and quotes that Python's `.env` loader strips, which showed up as a misleading `401 Invalid API Key` until I cleaned the file.

@@ -1,0 +1,7 @@
+.venv
+.git
+.env
+reports
+docs
+__pycache__
+data/history.db
